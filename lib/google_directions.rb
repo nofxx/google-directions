@@ -7,7 +7,7 @@ require 'openssl'
 require 'base64'
 
 class GoogleDirections
-  VERSION   = '0.1.6.3'
+  VERSION   = '0.1.6.4'
   BASE_URL  = 'http://maps.googleapis.com'
   BASE_PATH = '/maps/api/directions/xml'
   DEFAULT_OPTIONS = {
