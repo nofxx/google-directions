@@ -88,6 +88,10 @@ class GoogleDirections
     end
   end
 
+  def overview_polyline
+    @doc.css("overview_polyline").css("points").text
+  end
+
   private
 
     def convert_to_minutes(text)

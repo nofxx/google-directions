@@ -51,6 +51,12 @@ class GoogleDirectionsTest < Minitest::Test
     assert_equal 4, directions.steps.size
   end
 
+  def test_overview_polyline
+    directions = GoogleDirections.new("rue poissonnière, 75002 Paris", "51 rue de Turbigo, 75003 Paris France")
+    assert_equal String, directions.overview_polyline.class
+    assert_equal 42, directions.overview_polyline.size
+  end
+
   def test_distance_text
     directions = GoogleDirections.new("Place du Maquis du Vercors PARIS-19EME", "rue poissoniere 75002 paris")
     assert_equal String, directions.distance_text.class
