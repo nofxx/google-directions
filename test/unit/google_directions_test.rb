@@ -40,6 +40,11 @@ class GoogleDirectionsTest < Minitest::Test
     assert_equal Array, directions.steps.class
   end
 
+  def test_brazilian_direction
+    directions = GoogleDirections.new("R augusta, 1700 São Paulo", "rua da conceição, São Paulo")
+    assert_equal Array, directions.steps.class
+  end
+
   def test_steps
     directions = GoogleDirections.new("rue poissonnière, 75002 Paris", "51 rue de Turbigo, 75003 Paris France")
     assert_equal Array, directions.steps.class
@@ -49,7 +54,7 @@ class GoogleDirectionsTest < Minitest::Test
   def test_distance_text
     directions = GoogleDirections.new("Place du Maquis du Vercors PARIS-19EME", "rue poissoniere 75002 paris")
     assert_equal String, directions.distance_text.class
-    assert_equal "6.7 km", directions.distance_text
+    assert_equal "6.4 km", directions.distance_text
   end
 
   def test_zero_distance_text
