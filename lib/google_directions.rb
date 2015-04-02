@@ -4,6 +4,7 @@ require 'net/http'
 require 'open-uri'
 require 'nokogiri'
 require 'openssl'
+require 'base64'
 
 class GoogleDirections
   VERSION   = '0.1.6.5'
@@ -23,7 +24,7 @@ class GoogleDirections
     @destination = destination
     @options = opts.merge({:origin => @origin, :destination => @destination})
     path = BASE_PATH + '?' + querify(@options)
-    @url = BASE_URL + path
+    @url = BASE_URL + sign_path(path, @options)
     @xml = open(@url).read
     @doc = Nokogiri::XML(@xml)
     @status = @doc.css('status').text
@@ -106,5 +107,22 @@ class GoogleDirections
       end
 
       params.join("&")
+    end
+
+    def sign_path(path, options)
+      return path unless options[:private_key]
+
+      raw_private_key = url_safe_base64_decode(options[:private_key])
+      digest = OpenSSL::Digest.new('sha1')
+      raw_signature = OpenSSL::HMAC.digest(digest, raw_private_key, path)
+      path + "&signature=#{url_safe_base64_encode(raw_signature)}"
+    end
+
+    def url_safe_base64_decode(base64_string)
+      Base64.decode64(base64_string.tr('-_', '+/'))
+    end
+
+    def url_safe_base64_encode(raw)
+      Base64.encode64(raw).tr('+/', '-_').strip
     end
 end
