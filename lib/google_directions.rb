@@ -7,7 +7,7 @@ require 'openssl'
 require 'base64'
 
 class GoogleDirections
-  VERSION   = '0.1.6.5'
+  VERSION   = '0.1.7'
   BASE_URL  = 'http://maps.googleapis.com'
   BASE_PATH = '/maps/api/directions/xml'
   DEFAULT_OPTIONS = {
@@ -70,6 +70,10 @@ class GoogleDirections
       distance_in_miles = (meters.to_f / 1610.22).round
       distance_in_miles
     end
+  end
+
+  def legs
+    @doc.css("leg")
   end
 
   def successful?

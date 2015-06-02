@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'google_directions'
+# require 'google_directions/version'
 
 Gem::Specification.new do |s|
   s.name        = 'google_directions'
-  s.version     = GoogleDirections::VERSION
+  s.version     = '0.1.7' # TODO: GoogleDirections::VERSION
   s.summary     = "Ruby-wrapper for Google Directions API"
   s.description = "Ruby-wrapper for Google Directions API. Can return the drive time and driving distance between two places."
   s.authors     = ["Josh Crews"]
